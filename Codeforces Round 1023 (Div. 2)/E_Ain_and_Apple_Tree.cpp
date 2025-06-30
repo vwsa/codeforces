@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 void solve(){
-    int n;
-    cin >> n;
-    vector<vector<int>> v(n+1);
+    int n,k;
+    cin >> n >> k;
+    
 }
 int main() {
     
