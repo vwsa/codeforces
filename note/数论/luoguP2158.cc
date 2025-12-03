@@ -19,8 +19,12 @@ signed main() {
         for (const auto prime: p) {
             int v = prime * i;
             if (v > n) break;
-            if (i % prime == 0) break;
-            euler[v] = p[prime] * euler[i];
+            if (i % prime == 0) {
+                euler[v] = prime * euler[i];
+                break;
+            } else {
+                euler[v] = (prime - 1) * euler[i];
+            };
         }
     }
     for (int i=1;i<=n;i++) {
