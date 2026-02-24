@@ -1,38 +1,48 @@
-#include <algorithm>
 #include <bits/stdc++.h>
-#include <vector>
 using namespace std;
-#define int long long
-const int maxn = 1e5 + 100;
 
+bool check(string str) {
+    string s[4];
+    s[0] = "abba";
+    s[1] = "abab";
+    s[2] = "baba";
+    s[3] = "baab";
+    array<int,4> check = {1,1,1,1};
+    for (int i = 0; i < 3; i++) {
+        if (str[i] == '?') {continue;}
+        for (int j = 0; j < 3; j++) {
+            if (str[i] != s[j][i]) {
+                check[j] = 0;
+            }
+        }
+    }
+    for (int i = 0; i < 4; i++) {
+        if (check[i]) return true;
+    }
+    return false;
+}
 void solve() {
     int n;
-    cin >> n;
-    vector<int> a(n+1);
-    bool true;
-    for (int i = 1; i <= n; i++) {
-        cin >> a[i];
+    string s;
+    cin >> n >> s;
+    if (n % 2 == 1) {
+        if (s[0] == 'b') {
+            cout << "NO" << endl;
+            return;
+        } 
+        s = s.substr(1, n-1);
     }
-    set<int> nums;
-    for (int i = 1; i <= n; i++) {
-        nums.insert(a[i]);
-    }
-    int ans = -1;
-    for (auto iter = nums.begin(); iter != nums.end(); iter++) {
-        int l = LONG_LONG_MAX, r = LONG_LONG_MAX;
-        if (iter != nums.begin()) {
-            auto pv = iter; pv--;
-            l = (*iter) - (*pv);
+
+    for (int i = 0; i < s.length(); i += 2) {
+        string substr = s.substr(i, 2);
+        if (substr == "bb" || substr == "aa") {
+            cout << "NO" << endl;
+            return;
         }
-        auto rv = iter; rv++;
-        if (rv != nums.end()) {
-            r = (*rv) - (*iter);
-        }
-        ans = max(ans, min(l,r));
     }
-    cout << ans << endl;
+    cout << "YES" << endl;
 }
-signed main() {
+int main() {
     int T;
     cin >> T;
     while (T--) solve();
